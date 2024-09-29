@@ -10,7 +10,6 @@ public class SimpleController {
     int crawlerNum;
     CrawlConfig config;
     CrawlController controller;
-    String seed;
     SimpleController(int num, String path, int maxPages, int maxDepth) throws Exception {
         crawlerNum = num;
         config = new CrawlConfig();
@@ -23,11 +22,11 @@ public class SimpleController {
         RobotstxtServer robotstxtServer= new RobotstxtServer(robotstxtConfig, pageFetcher);
         controller = new CrawlController(config, pageFetcher, robotstxtServer);
     }
-    public void setSeed(String seed) {
-        this.seed = seed;
+    public void addSeed(String seed) {
+        controller.addSeed(seed);
     }
 
-    public void start() throws Exception {
-        controller.start(SimpleCrawler.class, crawlerNum);
+    public void start(CrawlController.WebCrawlerFactory<?> factory) {
+        controller.start(factory, crawlerNum);
     }
 }
