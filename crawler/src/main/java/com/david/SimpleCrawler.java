@@ -5,8 +5,6 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public class SimpleCrawler extends WebCrawler {
@@ -56,5 +54,7 @@ public class SimpleCrawler extends WebCrawler {
         }
 
         stats.getVisitList().add(new VisitData(url, fileSize, outlinksCount, mimeType));
+        stats.inc();
+        System.err.println(stats.getCnt());
     }
 }
