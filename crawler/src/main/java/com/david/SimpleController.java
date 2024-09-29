@@ -16,6 +16,7 @@ public class SimpleController {
         config.setCrawlStorageFolder(path);
         config.setMaxPagesToFetch(maxPages);
         config.setMaxDepthOfCrawling(maxDepth);
+        config.setIncludeBinaryContentInCrawling(true);
 
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();

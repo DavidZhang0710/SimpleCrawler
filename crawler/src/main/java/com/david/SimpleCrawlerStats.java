@@ -1,23 +1,26 @@
 package com.david;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SimpleCrawlerStats {
-    final static String SITE_NAME = "FoxNews";
-    List<FetchData> fetchMap;
+    List<FetchData> fetchList;
     List<VisitData> visitList;
     List<UrlData> urlList;
 
     SimpleCrawlerStats() {
-        fetchMap = new ArrayList<>();
+        fetchList = new ArrayList<>();
         visitList = new ArrayList<>();
         urlList = new ArrayList<>();
     }
 
-    public void generateFiles() {
-
+    public List<FetchData> getFetchList() {
+        return fetchList;
+    }
+    public List<VisitData> getVisitList() {
+        return visitList;
+    }
+    public List<UrlData> getUrlList() {
+        return urlList;
     }
 }
