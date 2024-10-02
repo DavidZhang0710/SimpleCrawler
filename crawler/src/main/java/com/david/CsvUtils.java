@@ -19,7 +19,7 @@ public class CsvUtils {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("URL,Status\n");
             for (FetchData data : fetchList) {
-                writer.write(data.getUrl() + "," + data.getCode() + "\n");
+                writer.write("\"" + data.getUrl() + "\"" + "," + data.getCode() + "\n");
             }
         }
     }
@@ -29,7 +29,7 @@ public class CsvUtils {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("URL,FileSize(Bytes),Outlinks,ContentType\n");
             for (VisitData data : visitList) {
-                writer.write(data.getUrl() + "," + data.getFileSize() + "," + data.getOutlinkNum() + "," + data.getContentType() + "\n");
+                writer.write("\"" + data.getUrl() + "\"," + data.getFileSize() + "," + data.getOutlinkNum() + "," + data.getContentType() + "\n");
             }
         }
     }
@@ -39,7 +39,7 @@ public class CsvUtils {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("URL,Indicator\n");
             for (UrlData data : urlList) {
-                writer.write(data.getUrl() + "," + data.getResident() + "\n");
+                writer.write("\"" + data.getUrl() + "\"," + data.getResident() + "\n");
             }
         }
     }

@@ -9,8 +9,9 @@ import java.util.regex.Pattern;
 
 public class SimpleCrawler extends WebCrawler {
 
-    private final static Pattern EXCLUSIONS = Pattern.compile(".*(\\.(css|js|xml|mp3|mp4|zip|gz))$");
-    private static final Pattern PATTERNS = Pattern.compile(".*(\\.(html?|gif|png|jpg|jpeg|pdf|doc))$");
+    private final static Pattern EXCLUSIONS = Pattern.compile(".*(\\.(css|js|xml|mp3|mp4|zip|gz|json|ttf))$");
+    private static final Pattern PATTERNS = Pattern.compile(".*(\\.(html?|pdf|doc|docx|apng|png|avif|gif|jpg|jpeg|jfif|pjpeg|pjp|svg|webp))$");
+    private static final Pattern DEFAULT_PATTERNS = Pattern.compile(".*/[^.]*$");
     private SimpleCrawlerStats stats;
     SimpleCrawler(SimpleCrawlerStats stats) {
         this.stats = stats;
@@ -29,16 +30,11 @@ public class SimpleCrawler extends WebCrawler {
         String outlinkDomain = url.getDomain();
         String indicator = outlinkDomain.equals(domain) ? "OK" : "N_OK";
         stats.getUrlList().add(new UrlData(outlinkUrl, indicator));
-
         String urlString = url.getURL().toLowerCase();
         if (EXCLUSIONS.matcher(urlString).matches()) {
             return false;
         }
-
-        if (PATTERNS.matcher(urlString).matches()) {
-            return true;
-        }
-        return true;
+        return PATTERNS.matcher(urlString).matches() || DEFAULT_PATTERNS.matcher(urlString).matches();
     }
 
     @Override
@@ -52,7 +48,6 @@ public class SimpleCrawler extends WebCrawler {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             outlinksCount = htmlParseData.getOutgoingUrls().size();
         }
-
         stats.getVisitList().add(new VisitData(url, fileSize, outlinksCount, mimeType));
         stats.inc();
         System.err.println(stats.getCnt());
