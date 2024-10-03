@@ -1,13 +1,14 @@
 package com.david;
 
 import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.url.WebURL;
 
 public class Main {
     private static final String ROOT_URL = "https://www.foxnews.com";
     private static final String SITE_NAME = "FoxNews";
     public static void main(String[] args) throws Exception {
         String path = "./data/crawler/";
-        SimpleController simpleController = new SimpleController(25, path, 20_000, 16);
+        SimpleController simpleController = new SimpleController(20, path, 20_000, 16);
 //        SimpleController simpleController = new SimpleController(10, path, 50, 16);
         simpleController.addSeed(ROOT_URL);
 

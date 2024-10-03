@@ -25,11 +25,18 @@ public class SimpleCrawler extends WebCrawler {
 
     @Override
     public boolean shouldVisit(Page page, WebURL url) {
-        String domain = page.getWebURL().getDomain();
         String outlinkUrl = url.getURL();
         String outlinkDomain = url.getDomain();
-        String indicator = outlinkDomain.equals(domain) ? "OK" : "N_OK";
-        stats.getUrlList().add(new UrlData(outlinkUrl, indicator));
+        String outlinkSubDomain = url.getSubDomain();
+        if (outlinkDomain.equals("foxnews.com") && ((outlinkSubDomain.equals("www") || outlinkSubDomain.isEmpty()))) {
+            String indicator = "OK";
+            stats.getUrlList().add(new UrlData(outlinkUrl, indicator));
+        }
+        else {
+            String indicator = "N_OK";
+            stats.getUrlList().add(new UrlData(outlinkUrl, indicator));
+            return false;
+        }
         String urlString = url.getURL().toLowerCase();
         if (EXCLUSIONS.matcher(urlString).matches()) {
             return false;
